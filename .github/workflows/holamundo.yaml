@@ -1,23 +1,16 @@
-name: Run Validation Tests (Node.js)
-
-on:
-  workflow_call:
-
-jobs:
-  run-validation:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout del codigo
+steps:
+      - name: 1. Descargar codigo
         uses: actions/checkout@v4
 
-      - name: Configurar Node.js 20
+      - name: 2. Configurar Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
-      - name: Instalar dependencias
-        run: npm ci
+      - name: 3. Instalar dependencias (Limpio)
+        # Usamos 'npm install' para asegurar que se creen los node_modules
+        run: npm install
 
-      - name: Ejecutar Tests unitarios (Jest)
+      - name: 4. Ejecutar Tests
+        # Esto llamará a tu script test.js
         run: npm test
