@@ -1,19 +1,23 @@
-name: Run Hello World and LS
+name: Run Validation Tests (Node.js)
 
 on:
   workflow_call:
 
 jobs:
-  run-inline-script:
+  run-validation:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout del codigo
         uses: actions/checkout@v4
 
-      - name: Exec HolaMundo y LS
-        run: |
-          echo "Hola Mundo"
-          pwd
-          ls -lah
-          echo "Fin del Script"
-          echo "ESTE ES UN PIPE DE TEST"
+      - name: Configurar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar Tests unitarios (Jest)
+        run: npm test
