@@ -1,23 +1,13 @@
-name: Template - Validacion de Codigo
-
+name: Template - Validacion
 on:
-  workflow_call: # Esto permite que otros repos lo llamen
-
+  workflow_call:
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: 1. Descargar codigo
-        uses: actions/checkout@v4
-
-      - name: 2. Configurar Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
-
-      - name: 3. Instalar dependencias
-        # npm install crea la carpeta node_modules que te faltaba
-        run: npm install
-
-      - name: 4. Ejecutar Tests de Jest
-        run: npm test
+      - run: npm install
+      - run: npm test
